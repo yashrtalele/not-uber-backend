@@ -1,0 +1,9 @@
+dist
+eslint.config.mjs
+node_modules
+package.json
+package-lock.json
+tsconfig.json
+.prettierrc
+yarn.lock
+.env
