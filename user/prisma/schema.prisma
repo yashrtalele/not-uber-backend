@@ -31,3 +31,9 @@ model UserProfile {
   profile_picture String?
   created_at      DateTime @default(now())
 }
+
+model BlacklistTokens {
+  id        Int @id   @default(autoincrement())
+  token     String
+  createdAt DateTime  @default(now())
+}
