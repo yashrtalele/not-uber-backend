@@ -7,6 +7,8 @@ import { UserSignInSchema } from "../schemas/user.signin.schema";
 import { hashPassword, validatePassword } from "../services/passwordService";
 import jwt from "jsonwebtoken";
 import { blacklistToken } from "../prisma/queries/blacklistTokens";
+import { userAuth } from "../middleware/userAuth";
+import { AuthRequest } from "../utils/types";
 const JWT_SECRET = process.env.JWT_SECRET;
 const router: Router = express.Router();
 
@@ -113,6 +115,15 @@ router.get("/signout", async (req: Request, res: Response): Promise<void> => {
     });
     return;
   }
+});
+
+router.get("/getUserDetails", userAuth, async (req: AuthRequest, res: Response): Promise<void> => {
+  // res.send(HTTP_STATUS.OK).json({
+  //   message: "User details fetched successfully",
+  // });
+  // return;
+  res.send(req.user);
+  return;
 });
 
 export { router };
