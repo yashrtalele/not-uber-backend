@@ -118,12 +118,12 @@ router.get("/signout", async (req: Request, res: Response): Promise<void> => {
 });
 
 router.get("/getUserDetails", userAuth, async (req: AuthRequest, res: Response): Promise<void> => {
-  // res.send(HTTP_STATUS.OK).json({
-  //   message: "User details fetched successfully",
-  // });
-  // return;
-  res.send(req.user);
-  return;
+  try {
+    res.send(req.user);
+    return;
+  } catch (error) {
+    res.send(HTTP_STATUS.BAD_REQUEST).json({ error });
+  }
 });
 
 export { router };
