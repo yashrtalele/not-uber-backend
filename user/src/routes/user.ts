@@ -6,6 +6,7 @@ import { UserSignUpSchema } from "../schemas/user.signup.schema";
 import { UserSignInSchema } from "../schemas/user.signin.schema";
 import { hashPassword, validatePassword } from "../services/passwordService";
 import jwt from "jsonwebtoken";
+import { blacklistToken } from "../prisma/queries/blacklistTokens";
 const JWT_SECRET = process.env.JWT_SECRET;
 const router: Router = express.Router();
 
@@ -90,6 +91,21 @@ router.get("/signin", async (req: Request, res: Response): Promise<void> => {
       user,
       userProfile,
     });
+    return;
+  } catch (error) {
+    res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({
+      message: (error as Error).message,
+    });
+    return;
+  }
+});
+
+router.get("/signout", async (req: Request, res: Response): Promise<void> => {
+  try {
+    const token = req.cookies.token;
+    await blacklistToken(token);
+    res.clearCookie("token");
+    res.send({ message: "User logged out successfully!" });
     return;
   } catch (error) {
     res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({
