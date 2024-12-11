@@ -25,6 +25,12 @@ router.post("/signup", async (req: Request, res: Response): Promise<void> => {
   const { username, password, phoneNumber, firstName, lastName, email } = req.body;
   const hashedPassword = await hashPassword(password);
   try {
+    if (await getUser(username)) {
+      res.status(HTTP_STATUS.BAD_REQUEST).json({
+        message: "User already exists",
+      });
+      return;
+    }
     const { user, userProfile } = await createUser(username, hashedPassword, phoneNumber, firstName, lastName, email);
     const userId: number = user.id;
 
