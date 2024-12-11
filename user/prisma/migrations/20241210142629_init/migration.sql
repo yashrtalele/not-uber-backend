@@ -3,6 +3,7 @@ CREATE TABLE "User" (
     "id" SERIAL NOT NULL,
     "username" TEXT NOT NULL,
     "phoneNumber" TEXT NOT NULL,
+    "password" TEXT NOT NULL,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -15,7 +16,7 @@ CREATE TABLE "UserProfile" (
     "lastName" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "profile_picture" TEXT,
-    "created_at" TIMESTAMP(3) NOT NULL,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "UserProfile_pkey" PRIMARY KEY ("id")
 );

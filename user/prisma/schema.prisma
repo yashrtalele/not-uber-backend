@@ -17,6 +17,7 @@ model User {
   id          Int           @id @default(autoincrement())
   username    String        @unique
   phoneNumber String        @unique
+  password    String
   UserProfile UserProfile[]
 }
 
@@ -28,5 +29,5 @@ model UserProfile {
   lastName        String
   email           String   @unique
   profile_picture String?
-  created_at      DateTime
+  created_at      DateTime @default(now())
 }
