@@ -13,5 +13,4 @@ cron.schedule("* * * * *", async () => {
       },
     },
   });
-  console.log("Expired tokens removed");
 });
