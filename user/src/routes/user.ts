@@ -9,6 +9,7 @@ import jwt from "jsonwebtoken";
 import { blacklistToken } from "../prisma/queries/blacklistTokens";
 import { userAuth } from "../middleware/userAuth";
 import { AuthRequest } from "../utils/types";
+import { getUserByPhoneNumber } from "../prisma/queries/getUserByPhoneNumber";
 const JWT_SECRET = process.env.JWT_SECRET;
 const router: Router = express.Router();
 
@@ -56,7 +57,7 @@ router.post("/signup", async (req: Request, res: Response): Promise<void> => {
   }
 });
 
-router.get("/signin", async (req: Request, res: Response): Promise<void> => {
+router.post("/signin", async (req: Request, res: Response): Promise<void> => {
   const { success } = UserSignInSchema.safeParse(req.body);
   if (!success) {
     res.status(HTTP_STATUS.BAD_REQUEST).json({
@@ -123,6 +124,39 @@ router.get("/getUserDetails", userAuth, async (req: AuthRequest, res: Response):
     return;
   } catch (error) {
     res.send(HTTP_STATUS.BAD_REQUEST).json({ error });
+  }
+});
+
+router.post("/checkIfUserExists", async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { phoneNumber } = req.body;
+
+    if (!phoneNumber) {
+      res.status(HTTP_STATUS.BAD_REQUEST).send({
+        message: "Phone number is required",
+      });
+      return;
+    }
+
+    const user = await getUserByPhoneNumber(phoneNumber);
+
+    if (user.user) {
+      res.status(HTTP_STATUS.OK).send({
+        message: "User exists",
+        found: true,
+        user,
+      });
+    } else {
+      res.status(HTTP_STATUS.OK).send({
+        message: "User not found",
+        found: false,
+      });
+    }
+  } catch (error) {
+    console.error("Error checking if user exists:", error);
+    res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).send({
+      message: "An error occurred while checking user",
+    });
   }
 });
 
