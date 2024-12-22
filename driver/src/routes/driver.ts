@@ -63,7 +63,6 @@ router.post("/signup", async (req: Request, res: Response): Promise<void> => {
     );
     if (driver !== null) {
       const driverId: number = driver.id;
-      console.log(driverId);
       const token = jwt.sign({ driverId }, JWT_SECRET as string, {
         expiresIn: "1h",
       });
