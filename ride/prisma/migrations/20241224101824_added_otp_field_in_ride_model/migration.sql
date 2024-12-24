@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Ride" ADD COLUMN     "otp" TEXT NOT NULL DEFAULT '000000';
