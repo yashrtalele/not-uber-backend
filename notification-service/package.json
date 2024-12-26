@@ -34,11 +34,14 @@
   "ext": "ts",
   "exec": "concurrently \"npx tsc --watch\" \"ts-node src/index.ts\"",
   "dependencies": {
+    "@types/amqplib": "^0.10.6",
     "@types/axios": "^0.9.36",
     "@types/cors": "^2.8.17",
     "@types/socket.io": "^3.0.1",
+    "amqplib": "^0.10.5",
     "axios": "^1.7.9",
     "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "socket.io": "^4.8.1"
   }
