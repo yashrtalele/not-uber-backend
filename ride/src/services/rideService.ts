@@ -39,23 +39,23 @@ const getFare = async (current: string, destination: string) => {
   const fare = {
     auto: Math.round(
       baseFare.auto +
-      (distanceTime.distance.value / 1000) * perKmRate.auto +
-      (distanceTime.duration.value / 60) * perMinuteRate.auto
+        (distanceTime.distance.value / 1000) * perKmRate.auto +
+        (distanceTime.duration.value / 60) * perMinuteRate.auto
     ),
     car: Math.round(
       baseFare.car +
-      (distanceTime.distance.value / 1000) * perKmRate.car +
-      (distanceTime.duration.value / 60) * perMinuteRate.car
+        (distanceTime.distance.value / 1000) * perKmRate.car +
+        (distanceTime.duration.value / 60) * perMinuteRate.car
     ),
     suv: Math.round(
       baseFare.suv +
-      (distanceTime.distance.value / 1000) * perKmRate.suv +
-      (distanceTime.duration.value / 60) * perMinuteRate.suv
+        (distanceTime.distance.value / 1000) * perKmRate.suv +
+        (distanceTime.duration.value / 60) * perMinuteRate.suv
     ),
     moto: Math.round(
       baseFare.moto +
-      (distanceTime.distance.value / 1000) * perKmRate.moto +
-      (distanceTime.duration.value / 60) * perMinuteRate.moto
+        (distanceTime.distance.value / 1000) * perKmRate.moto +
+        (distanceTime.duration.value / 60) * perMinuteRate.moto
     ),
   };
 
